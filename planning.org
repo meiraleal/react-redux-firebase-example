@@ -1,0 +1,21 @@
+* Requirements
+** Data Format: Title, description, date created, preview, download, media type (audio, video, image)
+** Required: Title, preview
+** Validations
+- "Title", "Preview" is always required.
+- User can only upload filetype base on media type.
+** User should be able to add record based on:
+*** Nasa API Search
+*** Form
+** User should be able to play video and audio
+** Pagination and be able to change the number of records per page
+** Export records as CSV
+
+* Non-functional requirements
+** Use CSS Framework
+- Using Material UI
+** Use Firebase
+** Use Redux
+** Use NASA API
+** Push your application into any of Git service you like.
+** Deploy your application to Heroku or any server that you have
