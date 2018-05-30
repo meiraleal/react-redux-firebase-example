@@ -3,7 +3,7 @@ import * as ActionTypes from './ActionTypes';
 let counter = 0;
 let nasaObj = {
   "date": "2018-05-29",
-  "explanation": "How many of these can you find in today's featured photograph: an aurora, airglow, one of the oldest impact craters on the Earth, snow and ice, stars, city lights, and part of the International Space Station? Most of these can be identified by their distinctive colors. The aurora here appears green at the bottom, red at the top, and is visible across the left of image. Airglow appears orange and can be seen hovering over the curve of the Earth. The circular Manicouagan Crater in Canada, about 100 kilometers across and 200 million years old, is visible toward the lower right and is covered in white snow and ice.  Stars, light in color, dot the dark background of space. City lights appear a bright yellow and dot the landscape. Finally, across the top, part of the International Space Station (ISS) appears mostly tan. The featured image was taken from the ISS in 2012.",
+  "explanation": "How many of these can you find in today's featured photoograph: an aurora, airglow, one of the oldest impact craters on the Earth, snow and ice, stars, city lights, and part of the International Space Station? Most of these can be identified by their distinctive colors. The aurora here appears green at the bottom, red at the top, and is visible across the left of image. Airglow appears orange and can be seen hovering over the curve of the Earth. The circular Manicouagan Crater in Canada, about 100 kilometers across and 200 million years old, is visible toward the lower right and is covered in white snow and ice.  Stars, light in color, dot the dark background of space. City lights appear a bright yellow and dot the landscape. Finally, across the top, part of the International Space Station (ISS) appears mostly tan. The featured image was taken from the ISS in 2012.",
   "hdurl": "https://apod.nasa.gov/apod/image/1805/AuroraCrater_ISS_4256.jpg",
   "media_type": "image",
   "service_version": "v1",
@@ -37,6 +37,9 @@ const initialState = {
       { id: 'actions', label: 'Actions' }
     ]
   },
+  dialog: {
+    open: false
+  },
   data: [
     createData(nasaObj, "1 Teste"),
     createData(nasaObj, "das tesdas"),
@@ -68,6 +71,13 @@ const reducer = (state = initialState, action) => {
       dataTable: {...state.dataTable,
                   rowsPerPage: action.rowsPerPage,
                   page: 0}
+    };
+  }
+  case ActionTypes.TOGGLE_DIALOG: {
+    return {
+      ...state,
+      dialog: {...state.dialog,
+               open: !state.dialog.open}
     };
   }
   default:

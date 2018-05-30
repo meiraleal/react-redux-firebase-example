@@ -36,3 +36,16 @@ export const handleChangeRowsPerPage = event => {
     rowsPerPage: event.target.value
   };
 };
+
+export const toggleDialog = (mode) => {
+  return {
+    type: ActionTypes.TOGGLE_DIALOG,
+    mode
+  };
+};
+
+export const handleAddButtonClick = () => {
+  return (dispatch) => {
+    dispatch(toggleDialog("add"));
+  };
+};
