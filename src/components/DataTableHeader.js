@@ -6,13 +6,14 @@ import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Tooltip from '@material-ui/core/Tooltip';
 
-class DataTableHead extends React.Component {
-  createSortHandler = property => event => {
-    this.props.handleRequestSort(event, property);
+class DataTableHeader extends React.Component {
+  createSortHandler = column => event => {
+    this.props.handleRequestSort(column);
   };
 
   render() {
-    const { order, orderBy, columns } = this.props;
+    const { ascending, orderBy, columns } = this.props;
+    const direction = ascending ? "asc" : "desc";
     return (
       <TableHead>
         <TableRow>
@@ -20,7 +21,7 @@ class DataTableHead extends React.Component {
             return (
               <TableCell
                 key={column.id}
-                sortDirection={orderBy === column.id ? order : false}
+                sortDirection={orderBy === column.id ? direction : false}
                 >
                 <Tooltip
                   title="Sort"
@@ -28,7 +29,7 @@ class DataTableHead extends React.Component {
                   >
                   <TableSortLabel
                     active={orderBy === column.id}
-                    direction={order}
+                    direction={direction}
                     onClick={this.createSortHandler(column.id)}
                     >
                     {column.label}
@@ -43,11 +44,11 @@ class DataTableHead extends React.Component {
   }
 }
 
-DataTableHead.propTypes = {
+DataTableHeader.propTypes = {
   handleRequestSort: PropTypes.func.isRequired,
-  order: PropTypes.string.isRequired,
+  ascending: PropTypes.bool.isRequired,
   orderBy: PropTypes.string.isRequired,
   columns: PropTypes.array.isRequired
 };
 
-export default DataTableHead;
+export default DataTableHeader;

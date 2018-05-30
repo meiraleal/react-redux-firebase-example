@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
+import Paper from '@material-ui/core/Paper';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -42,13 +43,13 @@ const App = (props) => {
             />
         </Toolbar>
       </AppBar>
-      <div className="MainContent">
+      <Paper className="MainContent">
         <DataTable data={props.data}
-                   settings={props.settings}
+                   dataTable={props.dataTable}
                    handleRequestSort={props.handleRequestSort}
                    handleChangePage={props.handleChangePage}
                    handleChangeRowsPerPage={props.handleChangeRowsPerPage}/>
-      </div>
+      </Paper>
       <Button variant="fab" color="primary" aria-label="add" className={classes.fab}>
         <AddIcon />
       </Button>
@@ -58,7 +59,7 @@ const App = (props) => {
 
 App.propTypes = {
   classes: PropTypes.object.isRequired,
-  settings: PropTypes.object.isRequired,
+  dataTable: PropTypes.object.isRequired,
   handleChangePage: PropTypes.func.isRequired,
   handleChangeRowsPerPage: PropTypes.func.isRequired,
   handleRequestSort: PropTypes.func.isRequired,

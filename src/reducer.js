@@ -1,3 +1,5 @@
+import * as ActionTypes from './ActionTypes';
+
 let counter = 0;
 let nasaObj = {
   "date": "2018-05-29",
@@ -9,10 +11,10 @@ let nasaObj = {
   "url": "https://apod.nasa.gov/apod/image/1805/AuroraCrater_ISS_1080.jpg"
 };
 
-function createData(nasaObj) {
+function createData(nasaObj, title) {
   counter += 1;
   return { id: counter,
-           title: nasaObj.title,
+           title: title,
            description: nasaObj.explanation,
            createdDate: nasaObj.date,
            preview: nasaObj.url,
@@ -21,9 +23,8 @@ function createData(nasaObj) {
 }
 
 const initialState = {
-  settings: {
-    query: '',
-    order: 'asc',
+  dataTable: {
+    ascending: true,
     orderBy: 'title',
     page: 0,
     rowsPerPage: 5,
@@ -37,18 +38,41 @@ const initialState = {
     ]
   },
   data: [
-    createData(nasaObj),
-    createData(nasaObj),
-    createData(nasaObj),
-    createData(nasaObj),
-    createData(nasaObj),
-    createData(nasaObj)
+    createData(nasaObj, "1 Teste"),
+    createData(nasaObj, "das tesdas"),
+    createData(nasaObj, "basd asd asd"),
+    createData(nasaObj, "dasdasd sd"),
+    createData(nasaObj, "32 2 asdasdsad"),
+    createData(nasaObj, "TItulo Piorado")
   ]
 };
 
-export default (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
-    default:
-      return state;
+  case ActionTypes.SORT_ROWS: {
+    return {
+      ...state,
+      data: action.data,
+      dataTable: action.dataTable
+    };
+  }
+  case ActionTypes.CHANGE_PAGE: {
+    return {
+      ...state,
+      dataTable: {...state.dataTable, page: action.page}
+    };
+  }
+  case ActionTypes.CHANGE_ROWS_PER_PAGE: {
+    return {
+      ...state,
+      dataTable: {...state.dataTable,
+                  rowsPerPage: action.rowsPerPage,
+                  page: 0}
+    };
+  }
+  default:
+    return state;
   };
 };
+
+export default reducer;

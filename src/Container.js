@@ -7,12 +7,8 @@ import { handleChangePage,
 import App from './components/App';
 
 class Container extends Component {
-  componentDidMount() {
-
-  }
-
   render() {
-    return (<App settings={this.props.settings}
+    return (<App dataTable={this.props.dataTable}
             data={this.props.data}
             handleRequestSort={this.props.handleRequestSort}
             handleChangePage={this.props.handleChangePage}
@@ -22,16 +18,18 @@ class Container extends Component {
 };
 
 Container.propTypes = {
-  settings: PropTypes.object.isRequired,
+  dataTable: PropTypes.object.isRequired,
   handleChangePage: PropTypes.func.isRequired,
   handleChangeRowsPerPage: PropTypes.func.isRequired,
   handleRequestSort: PropTypes.func.isRequired,
   data: PropTypes.array.isRequired
 };
 
-// Map the actions needed inside the App - startGame and the state from redux
 const StatefulContainer = connect(
-  state => state,
+  state => ({
+    dataTable: state.dataTable,
+    data: state.data
+  }),
   { handleChangePage, handleChangeRowsPerPage, handleRequestSort }
 )(Container);
 

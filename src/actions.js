@@ -1,23 +1,38 @@
-export const handleRequestSort = (event, property) => {
-  const orderBy = property;
-  let order = 'desc';
+import * as ActionTypes from './ActionTypes';
 
-  if (this.state.orderBy === property && this.state.order === 'desc') {
-    order = 'asc';
-  }
+export const handleRequestSort = (column) => {
+  return (dispatch, getState) => {
+    let { data, dataTable } = getState();
+    dataTable.ascending = column === dataTable.orderBy && !dataTable.ascending; // changing direction of the sort
+    dataTable.orderBy = column;
+    // Use spread operator to create a copy of the array otherwise it only mutates the object and don't trigger a re-render
+    data =
+      dataTable.ascending === true
+      ? [...data].sort((a, b) => (b[dataTable.orderBy] < a[dataTable.orderBy] ? -1 : 1))
+    : [...data].sort((a, b) => (a[dataTable.orderBy] < b[dataTable.orderBy] ? -1 : 1));
 
-  const data =
-        order === 'desc'
-        ? this.props.data.sort((a, b) => (b[orderBy] < a[orderBy] ? -1 : 1))
-        : this.props.data.sort((a, b) => (a[orderBy] < b[orderBy] ? -1 : 1));
-
-  this.setState({ data, order, orderBy });
+    dispatch({
+      type: ActionTypes.SORT_ROWS,
+      data,
+      dataTable
+    });
+  };
 };
 
 export const handleChangePage = (event, page) => {
-  this.setState({ page });
+  return (dispatch, getState) => {
+    let { data, dataTable } = getState();
+
+    dispatch({
+      type: ActionTypes.CHANGE_PAGE,
+      page
+    });
+  };
 };
 
 export const handleChangeRowsPerPage = event => {
-  this.setState({ rowsPerPage: event.target.value });
+  return {
+    type: ActionTypes.CHANGE_ROWS_PER_PAGE,
+    rowsPerPage: event.target.value
+  };
 };
