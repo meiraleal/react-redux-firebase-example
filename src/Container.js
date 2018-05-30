@@ -6,16 +6,7 @@ import { handleChangePage,
          handleRequestSort } from './actions';
 import App from './components/App';
 
-class Container extends Component {
-  render() {
-    return (<App dataTable={this.props.dataTable}
-            data={this.props.data}
-            handleRequestSort={this.props.handleRequestSort}
-            handleChangePage={this.props.handleChangePage}
-            handleChangeRowsPerPage={this.props.handleChangeRowsPerPage}
-            />);
-  }
-};
+const Container = (props) => (<App {...props} />);
 
 Container.propTypes = {
   dataTable: PropTypes.object.isRequired,
@@ -26,10 +17,7 @@ Container.propTypes = {
 };
 
 const StatefulContainer = connect(
-  state => ({
-    dataTable: state.dataTable,
-    data: state.data
-  }),
+  state => state,
   { handleChangePage, handleChangeRowsPerPage, handleRequestSort }
 )(Container);
 
