@@ -4,6 +4,7 @@ import Table from '@material-ui/core/Table';
 import DataTableHeader from './DataTableHeader';
 import DataTableFooter from './DataTableFooter';
 import DataTableBody from './DataTableBody';
+import Paper from '@material-ui/core/Paper';
 
 const applyFilters = (data, page, rowsPerPage) => {
   const start = page * rowsPerPage;
@@ -25,36 +26,41 @@ class DataTable extends React.Component {
       handleChangeRowsPerPage
     } = this.props;
     const filteredData = applyFilters(data, page, rowsPerPage);
-    return [
-        <Table aria-labelledby="tableTitle" key="Table">
-        <DataTableHeader
-      ascending={ascending}
-      orderBy={orderBy}
-      handleRequestSort={handleRequestSort}
-      columns={columns}
-        />
-        <DataTableBody
-      data={filteredData}
-      rowsPerPage={rowsPerPage}
-      page={page}
-        />
-        </Table>,
-      <DataTableFooter
-        key="TableFooter"
-        page={page}
-        numRows={data.length}
-        rowsPerPage={rowsPerPage}
-        handleChangePage={handleChangePage}
-        handleChangeRowsPerPage={handleChangeRowsPerPage} />];
-      }
-      }
+    return (
+      <Paper className="MainContent"
+             elevation={4}
+             style={{padding: 5,
+             margin: 50}}>
+        <Table aria-labelledby="tableTitle">
+          <DataTableHeader
+            ascending={ascending}
+            orderBy={orderBy}
+            handleRequestSort={handleRequestSort}
+            columns={columns}
+            />
+          <DataTableBody
+            data={filteredData}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            />
+        </Table>
+        <DataTableFooter
+          page={page}
+          numRows={data.length}
+          rowsPerPage={rowsPerPage}
+          handleChangePage={handleChangePage}
+          handleChangeRowsPerPage={handleChangeRowsPerPage} />
+      </Paper>
+    );
+  }
+}
 
-      DataTable.propTypes = {
-        dataTable: PropTypes.object.isRequired,
-        data: PropTypes.array.isRequired,
-        handleChangePage: PropTypes.func.isRequired,
-        handleChangeRowsPerPage: PropTypes.func.isRequired,
-        handleRequestSort: PropTypes.func.isRequired
-      };
+DataTable.propTypes = {
+  dataTable: PropTypes.object.isRequired,
+  data: PropTypes.array.isRequired,
+  handleChangePage: PropTypes.func.isRequired,
+  handleChangeRowsPerPage: PropTypes.func.isRequired,
+  handleRequestSort: PropTypes.func.isRequired
+};
 
-      export default DataTable;
+export default DataTable;
