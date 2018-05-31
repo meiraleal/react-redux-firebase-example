@@ -37,10 +37,9 @@ export const handleChangeRowsPerPage = event => {
   };
 };
 
-export const toggleDialog = (mode) => {
+export const toggleDialog = () => {
   return {
     type: ActionTypes.TOGGLE_DIALOG,
-    mode
   };
 };
 
@@ -53,19 +52,20 @@ export const handleFormData = (field, {target: {value}}) => {
 };
 
 export const addRecord = () => {
-  console.log("testando");
   return (dispatch) => {
     dispatch(toggleDialog("add"));
     dispatch({type: ActionTypes.ADD_RECORD});
   };
 };
 
-export const saveRecord = (record) => {
-  return (dispatch) => {
-    dispatch(toggleDialog("add"));
+export const saveRecord = () => {
+  return (dispatch, getState) => {
+    const state = getState();
+    state.firebase.ref(`/${state.dialog.rowId}`).set(state.dialog.record);
+    dispatch(toggleDialog());
     dispatch({
       type: ActionTypes.SAVE_RECORD,
-      record
+      record: state.dialog.record
     });
   };
 };
@@ -79,7 +79,7 @@ export const deleteRecord = (rowId) => {
 
 export const editRecord = (rowId, record) => {
   return (dispatch) => {
-    dispatch(toggleDialog("edit"));
+    dispatch(toggleDialog());
     dispatch({
       type: ActionTypes.EDIT_RECORD,
       rowId,

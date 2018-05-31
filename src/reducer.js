@@ -1,3 +1,4 @@
+import firebase from './firebase';
 import * as ActionTypes from './ActionTypes';
 
 let nasaObj = {
@@ -27,6 +28,7 @@ const emptyRecord = () => ({
   createdDate: new Date()
 });
 const initialState = {
+  firebase,
   dataTable: {
     ascending: true,
     orderBy: 'title',
@@ -82,7 +84,7 @@ const reducer = (state = initialState, action) => {
       dialog: {...state.dialog,
                open: !state.dialog.open,
                rowId: null,
-               record: emptyRecord}
+               record: emptyRecord()}
     };
   }
   case ActionTypes.HANDLE_FORM_DATA: {
@@ -96,7 +98,6 @@ const reducer = (state = initialState, action) => {
   case ActionTypes.ADD_RECORD: {
     let record = emptyRecord();
     state.data.push(record);
-    console.log(state.data);
     return {
       ...state,
       dialog: {open: true,
