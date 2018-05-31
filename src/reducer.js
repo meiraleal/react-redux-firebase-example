@@ -22,10 +22,12 @@ function createData(nasaObj, title) {
 }
 
 const emptyRecord = () => ({
-  mediaType: "image",
+  id: null,
   title: '',
   description: '',
-  createdDate: new Date()
+  mediaType: "image",
+  createdDate: new Date(),
+
 });
 const initialState = {
   firebase,

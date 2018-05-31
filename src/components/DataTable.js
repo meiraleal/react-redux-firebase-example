@@ -22,7 +22,6 @@ class DataTable extends React.Component {
       data,
       dataTable: {page,
                   rowsPerPage,
-                  query,
                   ascending,
                   orderBy,
                   columns},

@@ -20,13 +20,9 @@ export const handleRequestSort = (column) => {
 };
 
 export const handleChangePage = (event, page) => {
-  return (dispatch, getState) => {
-    let { data, dataTable } = getState();
-
-    dispatch({
-      type: ActionTypes.CHANGE_PAGE,
-      page
-    });
+  return {
+    type: ActionTypes.CHANGE_PAGE,
+    page
   };
 };
 
@@ -60,13 +56,13 @@ export const addRecord = () => {
 
 export const saveRecord = () => {
   return (dispatch, getState) => {
-    var {firebase, dialog: { rowId, record}} = getState();
+    var {firebase, dialog: {record}} = getState();
     try {
-      if(record.firebaseId)
-        firebase.ref(`/records/${record.firebaseId}`).set(record);
+      if(record.id)
+        firebase.ref(`/records/${record.id}`).set(record);
       else {
         let newRecord = firebase.ref("/records").push();
-        record.firebaseId = newRecord.key;
+        record.id = newRecord.key;
         newRecord.set(record);
       }
     }
