@@ -6,11 +6,7 @@ var config = {
   databaseURL: "https://react-redux-firebase-exa-e97de.firebaseio.com",
   projectId: "react-redux-firebase-exa-e97de",
   storageBucket: "react-redux-firebase-exa-e97de.appspot.com",
-  messagingSenderId: "55508046459",
-  "rules": {
-    ".read": true,
-    ".write": true
-  }
+  messagingSenderId: "55508046459"
 };
 firebase.initializeApp(config);
 

@@ -60,13 +60,26 @@ export const addRecord = () => {
 
 export const saveRecord = () => {
   return (dispatch, getState) => {
-    const state = getState();
-    state.firebase.ref(`/${state.dialog.rowId}`).set(state.dialog.record);
-    dispatch(toggleDialog());
-    dispatch({
-      type: ActionTypes.SAVE_RECORD,
-      record: state.dialog.record
-    });
+    var {firebase, dialog: { rowId, record}} = getState();
+    try {
+      if(record.firebaseId)
+        firebase.ref(`/records/${record.firebaseId}`).set(record);
+      else {
+        let newRecord = firebase.ref("/records").push();
+        record.firebaseId = newRecord.key;
+        newRecord.set(record);
+      }
+    }
+    catch(e) {
+      alert(e);
+    }
+    finally {
+      dispatch(toggleDialog());
+      dispatch({
+        type: ActionTypes.SAVE_RECORD,
+        record
+      });
+    }
   };
 };
 
@@ -90,7 +103,7 @@ export const editRecord = (rowId, record) => {
 
 const convertToCSV = (data) => {
   if(data.length === 0)
-    return;
+    return alert("Insert at least one row to export CSV.");
   let csv = Object.keys(data[0]).join(",");
   csv = csv + "\r\n" +
     data
@@ -115,10 +128,19 @@ const sendCSVToClient = (csv) => {
 export const exportCSV = () => {
   return (dispatch, getState) => {
     let state = getState();
-    let csv = convertToCSV(state.data);
-    sendCSVToClient(csv);
-    dispatch({
-      type: ActionTypes.EXPORT_CSV
-    });
+    try {
+      let csv = convertToCSV(state.data);
+      if(csv) {
+        sendCSVToClient(csv);
+      }
+    }
+    catch(e) {
+      alert(e);
+    }
+    finally {
+      dispatch({
+        type: ActionTypes.EXPORT_CSV
+      });
+    }
   };
 };
