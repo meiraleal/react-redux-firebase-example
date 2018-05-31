@@ -14,66 +14,45 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-const radioValue = "image";
-const handleTypeChange = () => {};
-
 const Dialog = (props) => (
   <MuiDialog
     open={props.open}
     onClose={props.handleClose}
     aria-labelledby="form-dialog-title"
     >
-    <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+    <DialogTitle id="form-dialog-title">{props.rowId ? 'Edit Record' : 'New Record'}
+    </DialogTitle>
     <DialogContent>
       <DialogContentText>
         To add a new record, search using the NASA Open API or entry the data in the form
       </DialogContentText>
-      <div style={{display: 'flex', padding: 10}}>
-        <div style={{marginRight: 20, marginTop: 5}}>
-          <FormControl component="fieldset">
-            <FormLabel component="legend">Media Type</FormLabel>
-            <RadioGroup
-              aria-label="mediatype"
-              name="media_type"
-              value={radioValue}
-              onChange={handleTypeChange}
-              >
-              <FormControlLabel value="image" control={<Radio />} label="Image" />
-              <FormControlLabel value="video" control={<Radio />} label="Video" />
-              <FormControlLabel value="audio" control={<Radio />} label="Audio" />
-            </RadioGroup>
-          </FormControl>
-        </div>
-        <div>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="title"
-            label="Title"
-            fullWidth
-            />
-          <TextField
-            margin="dense"
-            id="description"
-            label="Description"
-            fullWidth
-            />
-          <TextField
-            margin="dense"
-            id="media"
-            label="Media File"
-            fullWidth
-            />
+      <div style={{display: 'flex'}}>
+        <FormControl component="fieldset">
+          <FormLabel component="legend">File Type</FormLabel>
+          <RadioGroup
+            aria-label="mediatype"
+            name="media_type"
+            value={props.record.mediaType}
+            onChange={(event) => props.handleFormData('type', event)}
+            >
+            <FormControlLabel value="image" control={<Radio />} label="Image" />
+            <FormControlLabel value="video" control={<Radio />} label="Video" />
+            <FormControlLabel value="audio" control={<Radio />} label="Audio" />
+          </RadioGroup>
+        </FormControl>
+        <div style={{marginLeft: 20}}>
+          <TextField autoFocus value={props.record.title} margin="dense" id="title" label="Title" fullWidth onChange={(event) => props.handleFormData('title', event)} />
+            <TextField margin="dense" value={props.record.description} id="description" label="Description" fullWidth onChange={(event) => props.handleFormData('description', event)} />
+          <TextField margin="dense" id="media" label="Media File" fullWidth onChange={(event) => props.handleFormData('media')} />
         </div>
       </div>
-
     </DialogContent>
     <DialogActions>
       <Button onClick={props.toggleDialog} color="primary">
         Cancel
       </Button>
-      <Button onClick={props.toggleDialog} color="primary">
-        Subscribe
+      <Button onClick={props.saveRecord} color="primary">
+        {props.rowId ? "Edit" : "Add"}
       </Button>
     </DialogActions>
   </MuiDialog>
@@ -81,7 +60,10 @@ const Dialog = (props) => (
 
 Dialog.propTypes = {
   open: PropTypes.bool.isRequired,
-  toggleDialog: PropTypes.func.isRequired
+  toggleDialog: PropTypes.func.isRequired,
+  saveRecord: PropTypes.func.isRequired,
+  record: PropTypes.object.isRequired,
+  rowId: PropTypes.number
 };
 
 export default Dialog;

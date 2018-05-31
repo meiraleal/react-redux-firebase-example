@@ -20,10 +20,17 @@ class DataTable extends React.Component {
   render() {
     const {
       data,
-      dataTable: {page, rowsPerPage, query, ascending, orderBy, columns},
+      dataTable: {page,
+                  rowsPerPage,
+                  query,
+                  ascending,
+                  orderBy,
+                  columns},
       handleRequestSort,
       handleChangePage,
-      handleChangeRowsPerPage
+      handleChangeRowsPerPage,
+      editRecord,
+      deleteRecord
     } = this.props;
     const filteredData = applyFilters(data, page, rowsPerPage);
     return (
@@ -42,6 +49,8 @@ class DataTable extends React.Component {
             data={filteredData}
             rowsPerPage={rowsPerPage}
             page={page}
+            editRecord= {editRecord}
+            deleteRecord={deleteRecord}
             />
         </Table>
         <DataTableFooter

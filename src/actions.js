@@ -44,8 +44,41 @@ export const toggleDialog = (mode) => {
   };
 };
 
-export const handleAddButtonClick = () => {
+export const handleFormData = (field, {target: {value}}) => {
+  return {
+    type: ActionTypes.HANDLE_FORM_DATA,
+    field,
+    value
+  };
+};
+
+export const addRecord = () => {
   return (dispatch) => {
     dispatch(toggleDialog("add"));
+  };
+};
+
+export const saveRecord = (record) => {
+  console.log("saving");
+  return (dispatch) => {
+    dispatch(toggleDialog("add"));
+    dispatch({
+      type: ActionTypes.SAVE_RECORD,
+      record
+    });
+  };
+};
+
+export const deleteRecord = (rowId) => {
+  return {
+    type: ActionTypes.DELETE_RECORD,
+    rowId
+  };
+};
+
+export const editRecord = (mode) => {
+  return {
+    type: ActionTypes.TOGGLE_DIALOG,
+    mode
   };
 };

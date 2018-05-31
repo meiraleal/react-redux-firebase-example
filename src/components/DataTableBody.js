@@ -6,38 +6,43 @@ import TableRow from '@material-ui/core/TableRow';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 
-const DataTableBody = ({data}) => (
+const DataTableBody = (props) => (
   <TableBody>
-              {data.map(n => {
-                return (
-                  <TableRow
-                    hover
-                    tabIndex={-1}
-                    key={n.id}
-                    >
-                    <TableCell component="th" scope="row" padding="none">
-                      {n.title}
-                    </TableCell>
-                    <TableCell>{n.description}</TableCell>
-                    <TableCell>{n.createdDate}</TableCell>
-                    <TableCell>
-                      <img style={{
-                             width: "80px",
-                             maxHeight: "80px"
-                           }} src={n.preview} alt={n.title}/>
-                    </TableCell>
-                    <TableCell><a href={n.download}>Download</a></TableCell>
-                    <TableCell><EditIcon /><DeleteIcon /></TableCell>
+    {props.data.map((row, key) => {
+      return (
+        <TableRow
+          hover
+          tabIndex={-1}
+          key={key}
+          >
+          <TableCell component="th" scope="row" padding="none">
+            {row.title}
+          </TableCell>
+          <TableCell>{row.description}</TableCell>
+          <TableCell>{row.createdDate}</TableCell>
+          <TableCell>
+            <img style={{
+                   width: "80px",
+                   maxHeight: "80px"
+                 }} src={row.preview} alt={row.title}/>
+          </TableCell>
+          <TableCell><a href={row.download}>Download</a></TableCell>
+          <TableCell>
+            <EditIcon  style={{cursor: 'pointer'}} onClick={() => props.editRecord(key)} />
+              <DeleteIcon style={{cursor: 'pointer'}} onClick={() => props.deleteRecord(key)} />
+          </TableCell>
 
-                  </TableRow>
-                );
-              })}
-      </TableBody>);
+        </TableRow>
+      );
+    })}
+  </TableBody>);
 
 DataTableBody.propTypes = {
   data: PropTypes.array.isRequired,
   page: PropTypes.number.isRequired,
-  rowsPerPage: PropTypes.number.isRequired
+  rowsPerPage: PropTypes.number.isRequired,
+  editRecord: PropTypes.func.isRequired,
+  deleteRecord: PropTypes.func.isRequired,
 };
 
 export default DataTableBody;
