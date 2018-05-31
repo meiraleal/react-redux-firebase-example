@@ -28,7 +28,7 @@ const DataTableBody = (props) => (
           </TableCell>
           <TableCell><a href={row.download}>Download</a></TableCell>
           <TableCell>
-            <EditIcon  style={{cursor: 'pointer'}} onClick={() => props.editRecord(key)} />
+            <EditIcon  style={{cursor: 'pointer'}} onClick={() => props.editRecord(key, row)} />
               <DeleteIcon style={{cursor: 'pointer'}} onClick={() => props.deleteRecord(key)} />
           </TableCell>
 

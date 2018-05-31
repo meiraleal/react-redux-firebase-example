@@ -59,7 +59,6 @@ export const addRecord = () => {
 };
 
 export const saveRecord = (record) => {
-  console.log("saving");
   return (dispatch) => {
     dispatch(toggleDialog("add"));
     dispatch({
@@ -76,9 +75,13 @@ export const deleteRecord = (rowId) => {
   };
 };
 
-export const editRecord = (mode) => {
-  return {
-    type: ActionTypes.TOGGLE_DIALOG,
-    mode
+export const editRecord = (rowId, record) => {
+  return (dispatch) => {
+    dispatch(toggleDialog("edit"));
+    dispatch({
+      type: ActionTypes.EDIT_RECORD,
+      rowId,
+      record
+    });
   };
 };

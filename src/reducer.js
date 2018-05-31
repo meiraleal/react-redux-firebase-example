@@ -90,10 +90,20 @@ const reducer = (state = initialState, action) => {
       dialog
     };
   }
+  case ActionTypes.EDIT_RECORD: {
+    return {
+      ...state,
+      dialog: {...state.dialog,
+               rowId: action.rowId,
+               record: action.record}
+      //using filter as splice change the array internally and react doesn't recognize as an update
+    };
+  }
   case ActionTypes.DELETE_RECORD: {
     return {
       ...state,
-      data: state.data.filter((v, k) => k !== action.rowId) //using filter as splice change the array internally and react doesn't recognize as an update
+      data: state.data.filter((v, k) => k !== action.rowId)
+      //using filter as splice change the array internally and react doesn't recognize as an update
     };
   }
   default:
