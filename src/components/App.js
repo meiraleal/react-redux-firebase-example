@@ -6,7 +6,9 @@ import NewRecordButton from './NewRecordButton';
 import Dialog from './Dialog';
 
 const App = (props) => [
-  <PageHeader title="NASA Open APIs" key="header" />,
+    <PageHeader title="React Redux Firebase Example"
+  key="header"
+  exportCSV={props.exportCSV}/>,
   <DataTable
     key="dataTable"
     data={props.data}
@@ -40,6 +42,7 @@ App.propTypes = {
     toggleDialog: PropTypes.func.isRequired,
     addRecord: PropTypes.func.isRequired,
     editRecord: PropTypes.func.isRequired,
+    exportCSV: PropTypes.func.isRequired,
     deleteRecord: PropTypes.func.isRequired,
     saveRecord: PropTypes.func.isRequired,
     data: PropTypes.array.isRequired

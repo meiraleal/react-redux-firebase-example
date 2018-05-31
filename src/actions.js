@@ -87,3 +87,38 @@ export const editRecord = (rowId, record) => {
     });
   };
 };
+
+const convertToCSV = (data) => {
+  if(data.length === 0)
+    return;
+  let csv = Object.keys(data[0]).join(",");
+  csv = csv + "\r\n" +
+    data
+    .map((row) =>
+         Object.values(row).reduce((a, b) => `${a},"${b}"`))
+    .join("\r\n");
+  return csv;
+};
+
+const sendCSVToClient = (csv) => {
+  var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  var link = document.createElement("a");
+  var url = URL.createObjectURL(blob);
+  link.setAttribute("href", url);
+  link.setAttribute("download", "export.csv");
+  link.style.visibility = 'hidden';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
+export const exportCSV = () => {
+  return (dispatch, getState) => {
+    let state = getState();
+    let csv = convertToCSV(state.data);
+    sendCSVToClient(csv);
+    dispatch({
+      type: ActionTypes.EXPORT_CSV
+    });
+  };
+};
