@@ -20,7 +20,7 @@ const Dialog = (props) => (
     onClose={props.handleClose}
     aria-labelledby="form-dialog-title"
     >
-    <DialogTitle id="form-dialog-title">{props.rowId ? 'Edit Record' : 'New Record'}
+    <DialogTitle id="form-dialog-title">{isNaN(props.rowId) ? 'New' : 'Edit'} Record
     </DialogTitle>
     <DialogContent>
       <DialogContentText>
@@ -52,7 +52,7 @@ const Dialog = (props) => (
         Cancel
       </Button>
       <Button onClick={props.saveRecord} color="primary">
-        {props.rowId ? "Edit" : "Add"}
+        Save
       </Button>
     </DialogActions>
   </MuiDialog>

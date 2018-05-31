@@ -13,13 +13,19 @@ let nasaObj = {
 function createData(nasaObj, title) {
   return { title: title,
            description: nasaObj.explanation,
-           createdDate: nasaObj.date,
+           createdDate: new Date(nasaObj.date),
            mediaType: "image",
            preview: nasaObj.url,
            download: nasaObj.hdurl
          };
 }
 
+const emptyRecord = () => ({
+  mediaType: "image",
+  title: '',
+  description: '',
+  createdDate: new Date()
+});
 const initialState = {
   dataTable: {
     ascending: true,
@@ -38,12 +44,7 @@ const initialState = {
   dialog: {
     open: false,
     rowId: null,
-    record: {
-      mediaType: "image",
-      title: '',
-      description: '',
-      createdDate: null
-    }
+    record: emptyRecord()
   },
   data: [
     createData(nasaObj, "1 Teste"),
@@ -79,7 +80,9 @@ const reducer = (state = initialState, action) => {
     return {
       ...state,
       dialog: {...state.dialog,
-               open: !state.dialog.open}
+               open: !state.dialog.open,
+               rowId: null,
+               record: emptyRecord}
     };
   }
   case ActionTypes.HANDLE_FORM_DATA: {
@@ -88,6 +91,18 @@ const reducer = (state = initialState, action) => {
     return {
       ...state,
       dialog
+    };
+  }
+  case ActionTypes.ADD_RECORD: {
+    let record = emptyRecord();
+    state.data.push(record);
+    console.log(state.data);
+    return {
+      ...state,
+      dialog: {open: true,
+               rowId: state.data.length - 1,
+               record}
+      //using filter as splice change the array internally and react doesn't recognize as an update
     };
   }
   case ActionTypes.EDIT_RECORD: {

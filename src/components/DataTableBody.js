@@ -19,7 +19,7 @@ const DataTableBody = (props) => (
             {row.title}
           </TableCell>
           <TableCell>{row.description}</TableCell>
-          <TableCell>{row.createdDate}</TableCell>
+          <TableCell>{row.createdDate.toLocaleDateString()}</TableCell>
           <TableCell>
             <img style={{
                    width: "80px",

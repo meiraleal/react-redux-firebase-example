@@ -18,7 +18,7 @@ const App = (props) => [
     deleteRecord={props.deleteRecord}
     />,
   <NewRecordButton key="newRecordButton"
-                   handleClick={props.addRecord}
+                   addRecord={props.addRecord}
                    />,
   <Dialog key="dialog"
           open={props.dialog.open}

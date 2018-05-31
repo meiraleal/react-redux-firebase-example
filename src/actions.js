@@ -53,8 +53,10 @@ export const handleFormData = (field, {target: {value}}) => {
 };
 
 export const addRecord = () => {
+  console.log("testando");
   return (dispatch) => {
     dispatch(toggleDialog("add"));
+    dispatch({type: ActionTypes.ADD_RECORD});
   };
 };
 

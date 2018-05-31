@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 
 const NewRecordButton = (props) => (
-  <Button onClick={props.handleClick}
+  <Button onClick={props.addRecord}
           variant="fab"
           color="primary"
           aria-label="add"
@@ -20,7 +20,7 @@ const NewRecordButton = (props) => (
   </Button>);
 
 NewRecordButton.propTypes = {
-  handleClick: PropTypes.func.isRequired
+  addRecord: PropTypes.func.isRequired
 };
 
 export default NewRecordButton;
