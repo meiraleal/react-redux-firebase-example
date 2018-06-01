@@ -59,7 +59,6 @@ const reducer = (state = initialState, action) => {
     };
   }
   case ActionTypes.SELECT_ITEM_FROM_NASA: {
-    console.log(action);
     return {
       ...state,
       dialog: {
@@ -115,7 +114,6 @@ const reducer = (state = initialState, action) => {
       dialog: {open: true,
                rowId: state.data.length - 1,
                record}
-      //using filter as splice change the array internally and react doesn't recognize as an update
     };
   }
   case ActionTypes.EDIT_RECORD: {
@@ -124,7 +122,6 @@ const reducer = (state = initialState, action) => {
       dialog: {...state.dialog,
                rowId: action.rowId,
                record: action.record}
-      //using filter as splice change the array internally and react doesn't recognize as an update
     };
   }
   case ActionTypes.DELETE_RECORD: {

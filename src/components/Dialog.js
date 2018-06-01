@@ -47,7 +47,7 @@ const Dialog = (props) => (
           <TextField margin="dense" value={props.record.description} id="description" label="Description" fullWidth onChange={(event) => props.handleFormData('description', event)} />
                 <p>Select media file:</p>
             <input type="file"/>
-            {props.record.preview &&
+            {props.record.mediaType == 'image' && props.record.preview &&
               <div>
                   <h4>Preview:</h4>
                     <img alt="Preview Image" src={props.record.preview} style={{width: 100, height: 100}}/>

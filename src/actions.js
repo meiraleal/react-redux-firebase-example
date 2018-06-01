@@ -181,6 +181,15 @@ export const exportCSV = () => {
   };
 };
 
+const getNasaItem = (item) => {
+  const data = item.data[0];
+  return {title: data.title,
+          description: data.description,
+          mediaType: data.media_type,
+          preview: item.links[0].href,
+          download: item.href};
+};
+
 export const searchNasaAPI = (mediaType, input) => {
   return (dispatch, getState) => {
     if(input.length > 2) {
@@ -188,7 +197,7 @@ export const searchNasaAPI = (mediaType, input) => {
       fetch(nasaURL).then(
         (response) => response.json()
           .then(json => {
-            const suggestions = json.collection.items.slice(0, 5).map(item => item.data[0]);
+            const suggestions = json.collection.items.slice(0, 5).map(item => getNasaItem(item));
             dispatch({
               type: ActionTypes.SEARCH_NASA_API,
               suggestions
@@ -199,8 +208,10 @@ export const searchNasaAPI = (mediaType, input) => {
 };
 
 export const selectItemFromNasa = (mediaType, record) => {
+  console.log(record);
   return {
     type: ActionTypes.SELECT_ITEM_FROM_NASA,
-    record: {...record, mediaType}
+    record: {...record,
+             mediaType}
   };
 };
