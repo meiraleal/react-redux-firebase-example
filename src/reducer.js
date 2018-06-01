@@ -1,32 +1,15 @@
 import firebase from './firebase';
 import * as ActionTypes from './ActionTypes';
 
-let nasaObj = {
-  "date": "2018-05-29",
-  "explanation": "How many of these can you find in today's featured photoograph: an aurora, airglow, one of the oldest impact craters on the Earth, snow and ice, stars, city lights, and part of the International Space Station? Most of these can be identified by their distinctive colors.",
-  "hdurl": "https://apod.nasa.gov/apod/image/1805/AuroraCrater_ISS_4256.jpg",
-  "media_type": "image",
-  "service_version": "v1",
-  "title": "Aurora and Manicouagan Crater from the Space Station",
-  "url": "https://apod.nasa.gov/apod/image/1805/AuroraCrater_ISS_1080.jpg"
-};
-
-function createData(nasaObj, title) {
-  return { title: title,
-           description: nasaObj.explanation,
-           createdDate: new Date(nasaObj.date),
-           mediaType: "image",
-           preview: nasaObj.url,
-           download: nasaObj.hdurl
-         };
-}
-
 const emptyRecord = () => ({
   id: null,
   title: '',
   description: '',
   mediaType: "image",
   createdDate: new Date(),
+  preview: '',
+  download: '',
+  content: '',
 
 });
 const initialState = {
@@ -50,15 +33,21 @@ const initialState = {
     rowId: null,
     record: emptyRecord()
   },
-  data: [
-    createData(nasaObj, "1 Teste"),
-    createData(nasaObj, "das tesdas"),
-    createData(nasaObj, "TItulo Piorado")
-  ]
+  data: [],
+  loaded: false,
+  loading: false
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+  case ActionTypes.LOAD_INITIAL_DATA: {
+    return {
+      ...state,
+      data: action.data,
+      loaded: action.loaded,
+      loading: action.loading
+    };
+  }
   case ActionTypes.SORT_ROWS: {
     return {
       ...state,
@@ -119,8 +108,9 @@ const reducer = (state = initialState, action) => {
   }
   case ActionTypes.DELETE_RECORD: {
     return {
-      ...state,
-      data: state.data.filter((v, k) => k !== action.rowId)
+      ...state
+      // firebase autosync is responsible for deleting the record
+      //data: state.data.filter((v, k) => k !== action.rowId)
       //using filter as splice change the array internally and react doesn't recognize as an update
     };
   }

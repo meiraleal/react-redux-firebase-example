@@ -1,5 +1,33 @@
 import * as ActionTypes from './ActionTypes';
 
+export const loadInitialData = () => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: ActionTypes.LOAD_INITIAL_DATA,
+      loaded: false,
+      loading: true,
+      data: []
+    });
+    const {firebase} = getState();
+    firebase.ref("/records")
+      .on("value",
+          (snapshot) => {
+            const  records = snapshot.val();
+            const data = Object.keys(records).map((rowId) => {
+              records[rowId].id = rowId;
+              return records[rowId];
+            });
+            dispatch({
+              type: ActionTypes.LOAD_INITIAL_DATA,
+              loaded: true,
+              loading: false,
+              data
+            });
+          },
+          (error) => alert("Error:" + error.code));
+  };
+};
+
 export const handleRequestSort = (column) => {
   return (dispatch, getState) => {
     let { data, dataTable } = getState();
@@ -63,6 +91,8 @@ export const saveRecord = () => {
       else {
         let newRecord = firebase.ref("/records").push();
         record.id = newRecord.key;
+        record.createdDate = new Date().getTime();
+        console.log(record);
         newRecord.set(record);
       }
     }
@@ -79,10 +109,21 @@ export const saveRecord = () => {
   };
 };
 
-export const deleteRecord = (rowId) => {
-  return {
-    type: ActionTypes.DELETE_RECORD,
-    rowId
+export const deleteRecord = (rowId, firebaseId) => {
+  return (dispatch, getState) => {
+    var {firebase} = getState();
+    try {
+      firebase.ref("/records").child(firebaseId).remove();
+    }
+    catch(e) {
+      alert(e);
+    }
+    finally {
+      dispatch({
+        type: ActionTypes.DELETE_RECORD,
+        rowId
+      });
+    }
   };
 };
 

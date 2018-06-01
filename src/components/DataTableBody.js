@@ -19,7 +19,7 @@ const DataTableBody = (props) => (
             {row.title}
           </TableCell>
           <TableCell>{row.description}</TableCell>
-          <TableCell>{row.createdDate.toLocaleDateString()}</TableCell>
+          <TableCell>{!isNaN(row.createdDate) && new Date(row.createdDate).toLocaleDateString()}</TableCell>
           <TableCell>
             <img style={{
                    width: "80px",
@@ -29,7 +29,7 @@ const DataTableBody = (props) => (
           <TableCell><a href={row.download}>Download</a></TableCell>
           <TableCell>
             <EditIcon  style={{cursor: 'pointer'}} onClick={() => props.editRecord(key, row)} />
-              <DeleteIcon style={{cursor: 'pointer'}} onClick={() => props.deleteRecord(key)} />
+              <DeleteIcon style={{cursor: 'pointer'}} onClick={() => props.deleteRecord(key, row.id)} />
           </TableCell>
 
         </TableRow>

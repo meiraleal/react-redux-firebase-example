@@ -4,21 +4,24 @@ import DataTable from './DataTable';
 import PageHeader from './PageHeader';
 import NewRecordButton from './NewRecordButton';
 import Dialog from './Dialog';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 const App = (props) => [
     <PageHeader title="React Redux Firebase Example"
   key="header"
   exportCSV={props.exportCSV}/>,
-  <DataTable
-    key="dataTable"
-    data={props.data}
-    dataTable={props.dataTable}
-    handleRequestSort={props.handleRequestSort}
-    handleChangePage={props.handleChangePage}
-    handleChangeRowsPerPage={props.handleChangeRowsPerPage}
-    editRecord= {props.editRecord}
-    deleteRecord={props.deleteRecord}
-    />,
+  (props.loaded ?
+   <DataTable
+   key="dataTable"
+   data={props.data}
+   dataTable={props.dataTable}
+   handleRequestSort={props.handleRequestSort}
+   handleChangePage={props.handleChangePage}
+   handleChangeRowsPerPage={props.handleChangeRowsPerPage}
+   editRecord= {props.editRecord}
+   deleteRecord={props.deleteRecord}
+   /> :
+   <LinearProgress color="secondary" key="loader"/>),
   <NewRecordButton key="newRecordButton"
                    addRecord={props.addRecord}
                    />,
@@ -32,7 +35,7 @@ const App = (props) => [
           />
   ];
 
-App.propTypes = {
+  App.propTypes = {
     dataTable: PropTypes.object.isRequired,
     dialog: PropTypes.object.isRequired,
     handleChangePage: PropTypes.func.isRequired,
@@ -45,7 +48,9 @@ App.propTypes = {
     exportCSV: PropTypes.func.isRequired,
     deleteRecord: PropTypes.func.isRequired,
     saveRecord: PropTypes.func.isRequired,
-    data: PropTypes.array.isRequired
-};
+    data: PropTypes.array.isRequired,
+    loaded: PropTypes.bool.isRequired,
+    loading: PropTypes.bool.isRequired
+  };
 
-export default App;
+  export default App;
