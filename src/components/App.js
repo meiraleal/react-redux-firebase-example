@@ -32,6 +32,8 @@ const App = (props) => [
           saveRecord={props.saveRecord}
           record={props.dialog.record}
           rowId={props.dialog.rowId}
+          searchNasaAPI={props.searchNasaAPI}
+          suggestions={props.dialog.suggestions}
           />
   ];
 

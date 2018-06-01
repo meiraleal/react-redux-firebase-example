@@ -181,3 +181,13 @@ export const exportCSV = () => {
     }
   };
 };
+
+export const searchNasaAPI = (mediaType, input) => {
+  console.log(mediaType);
+  console.log(input);
+  return (dispatch, getState) => {
+    dispatch({
+      type: ActionTypes.SEARCH_NASA_API
+    });
+  }
+};

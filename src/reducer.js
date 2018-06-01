@@ -31,7 +31,8 @@ const initialState = {
   dialog: {
     open: false,
     rowId: null,
-    record: emptyRecord()
+    record: emptyRecord(),
+    suggestions: []
   },
   data: [],
   loaded: false,

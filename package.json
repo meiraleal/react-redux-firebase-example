@@ -6,6 +6,7 @@
   "dependencies": {
     "@material-ui/core": "^1.1.0",
     "@material-ui/icons": "^1.1.0",
+    "downshift": "^1.31.15",
     "firebase": "^5.0.4",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
@@ -25,8 +26,8 @@
   "devDependencies": {
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
-    "prop-types": "^15.6.1",
     "gh-pages": "^1.1.0",
+    "prop-types": "^15.6.1",
     "redux-devtools-extension": "^2.13.2"
   }
 }
