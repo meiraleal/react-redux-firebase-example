@@ -191,7 +191,7 @@ export const searchNasaAPI = (mediaType, input) => {
       fetch(nasaURL).then(
         (response) => response.json()
           .then(json => {
-            const suggestions = json.collection.items.slice(0, 10).map(item => ({value: item.data[0].title}));
+            const suggestions = json.collection.items.slice(0, 5).map(item => ({value: item.data[0].title}));
             console.log(suggestions);
             dispatch({
               type: ActionTypes.SEARCH_NASA_API,

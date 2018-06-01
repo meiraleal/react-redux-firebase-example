@@ -21,29 +21,25 @@ const NasaSearchInput = (props) => (
       highlightedIndex,
       selectedItem,
     }) => (
-      <div>
+      <div style={{flexGrow: 1, position: 'relative'}}>
         <TextField {...getInputProps()}
                    label="Search the NASA Open API"
                    margin="dense"
                    fullWidth />
 
         {isOpen ? (
-          <div>
+          <div style={{position: 'absolute', zIndex: 1, left: 0, right: 0, backgroundColor: "#FFF"}}>
             {props.suggestions && props.suggestions.map((item, index) => (
-                <div
-                  {...getItemProps({
-                    key: item.value,
-                    index,
-                    item,
-                    style: {
-                      backgroundColor:
-                        highlightedIndex === index ? 'lightgray' : 'white',
-                      fontWeight: selectedItem === item ? 'bold' : 'normal',
-                    },
-                  })}
+              <MenuItem
+                key={item.value}
+                selected={index === highlightedIndex}
+                component="div"
+                style={{
+                  fontWeight: index === highlightedIndex ? 500 : 400,
+                }}
                 >
-                  {item.value}
-                </div>
+                {item.value}
+              </MenuItem>
               ))}
           </div>
         ) : null}
