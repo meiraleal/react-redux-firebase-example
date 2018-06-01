@@ -50,7 +50,7 @@ const Dialog = (props) => (
             {props.record.preview &&
               <div>
                   <h4>Preview:</h4>
-              <img src={props.record.preview} style={{width: 100, height: 100}}/>
+                    <img alt="Preview Image" src={props.record.preview} style={{width: 100, height: 100}}/>
            </div>}
         </div>
       </div>

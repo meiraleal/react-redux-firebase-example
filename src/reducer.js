@@ -49,6 +49,15 @@ const reducer = (state = initialState, action) => {
       loading: action.loading
     };
   }
+  case ActionTypes.SEARCH_NASA_API: {
+    return {
+      ...state,
+      dialog: {
+        ...state.dialog,
+        suggestions: action.suggestions
+      }
+    }
+  }
   case ActionTypes.SORT_ROWS: {
     return {
       ...state,

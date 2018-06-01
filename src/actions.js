@@ -186,8 +186,18 @@ export const searchNasaAPI = (mediaType, input) => {
   console.log(mediaType);
   console.log(input);
   return (dispatch, getState) => {
-    dispatch({
-      type: ActionTypes.SEARCH_NASA_API
-    });
-  }
+    if(input.length > 2) {
+      const nasaURL = `https://images-api.nasa.gov/search?q=${input}`;
+      fetch(nasaURL).then(
+        (response) => response.json()
+          .then(json => {
+            const suggestions = json.collection.items.slice(0, 10).map(item => ({value: item.data[0].title}));
+            console.log(suggestions);
+            dispatch({
+              type: ActionTypes.SEARCH_NASA_API,
+              suggestions
+            });
+          }));
+    }
+  };
 };
