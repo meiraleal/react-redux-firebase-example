@@ -56,6 +56,17 @@ const reducer = (state = initialState, action) => {
         ...state.dialog,
         suggestions: action.suggestions
       }
+    };
+  }
+  case ActionTypes.SELECT_ITEM_FROM_NASA: {
+    console.log(action);
+    return {
+      ...state,
+      dialog: {
+        ...state.dialog,
+        suggestions: [],
+        record: action.record
+      }
     }
   }
   case ActionTypes.SORT_ROWS: {

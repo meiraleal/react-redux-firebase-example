@@ -8,9 +8,7 @@ import Chip from '@material-ui/core/Chip';
 
 const NasaSearchInput = (props) => (
   <Downshift
-    onChange={selection => alert(`You selected ${selection.value}`)}
     onInputValueChange={(input) => props.searchNasaAPI(props.mediaType, input)}
-    itemToString={item => (item ? item.value : '')}
   >
     {({
       getInputProps,
@@ -33,12 +31,13 @@ const NasaSearchInput = (props) => (
               <MenuItem
                 key={item.value}
                 selected={index === highlightedIndex}
+                onClick={() => props.selectItemFromNasa(props.mediaType, item)}
                 component="div"
                 style={{
                   fontWeight: index === highlightedIndex ? 500 : 400,
                 }}
                 >
-                {item.value}
+                {item.title}
               </MenuItem>
               ))}
           </div>

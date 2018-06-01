@@ -33,6 +33,7 @@ const App = (props) => [
           record={props.dialog.record}
           rowId={props.dialog.rowId}
           searchNasaAPI={props.searchNasaAPI}
+          selectItemFromNasa={props.selectItemFromNasa}
           suggestions={props.dialog.suggestions}
           />
   ];
@@ -50,6 +51,7 @@ const App = (props) => [
     exportCSV: PropTypes.func.isRequired,
     deleteRecord: PropTypes.func.isRequired,
     saveRecord: PropTypes.func.isRequired,
+    selectItemFromNasa: PropTypes.func.isRequired,
     data: PropTypes.array.isRequired,
     loaded: PropTypes.bool.isRequired,
     loading: PropTypes.bool.isRequired

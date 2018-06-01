@@ -10,3 +10,4 @@ export const DELETE_RECORD = 'DELETE_RECORD';
 export const SAVE_RECORD = 'SAVE_RECORD';
 export const EXPORT_CSV = 'EXPORT_CSV';
 export const SEARCH_NASA_API = 'SEARCH_NASA_API';
+export const SELECT_ITEM_FROM_NASA = 'SELECT_ITEM_FROM_NASA';

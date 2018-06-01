@@ -41,7 +41,7 @@ const Dialog = (props) => (
           </RadioGroup>
         </FormControl>
         <div style={{marginLeft: 20}}>
-          <NasaSearchInput mediaType={props.record.mediaType} searchNasaAPI={props.searchNasaAPI} suggestions={props.suggestions}/>
+          <NasaSearchInput mediaType={props.record.mediaType} searchNasaAPI={props.searchNasaAPI} selectItemFromNasa={props.selectItemFromNasa} suggestions={props.suggestions}/>
           Or add it manually:
           <TextField autoFocus value={props.record.title} margin="dense" id="title" label="Title" fullWidth onChange={(event) => props.handleFormData('title', event)} />
           <TextField margin="dense" value={props.record.description} id="description" label="Description" fullWidth onChange={(event) => props.handleFormData('description', event)} />

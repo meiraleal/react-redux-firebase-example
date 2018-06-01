@@ -92,7 +92,6 @@ export const saveRecord = () => {
         let newRecord = firebase.ref("/records").push();
         record.id = newRecord.key;
         record.createdDate = new Date().getTime();
-        console.log(record);
         newRecord.set(record);
       }
     }
@@ -183,21 +182,25 @@ export const exportCSV = () => {
 };
 
 export const searchNasaAPI = (mediaType, input) => {
-  console.log(mediaType);
-  console.log(input);
   return (dispatch, getState) => {
     if(input.length > 2) {
       const nasaURL = `https://images-api.nasa.gov/search?q=${input}`;
       fetch(nasaURL).then(
         (response) => response.json()
           .then(json => {
-            const suggestions = json.collection.items.slice(0, 5).map(item => ({value: item.data[0].title}));
-            console.log(suggestions);
+            const suggestions = json.collection.items.slice(0, 5).map(item => item.data[0]);
             dispatch({
               type: ActionTypes.SEARCH_NASA_API,
               suggestions
             });
           }));
     }
+  };
+};
+
+export const selectItemFromNasa = (mediaType, record) => {
+  return {
+    type: ActionTypes.SELECT_ITEM_FROM_NASA,
+    record: {...record, mediaType}
   };
 };
