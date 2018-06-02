@@ -6,7 +6,6 @@ import App from '../components/App';
 
 class MainContainer extends React.Component {
   componentDidMount() {
-    console.log(this.props.loadInitialData);
     this.props.loadInitialData();
   }
 
@@ -22,7 +21,7 @@ MainContainer.propTypes = {
 };
 
 const StatefulMainContainer = connect(
-  () => {},
+  () => ({}),
   {loadInitialData, exportCSV, addRecord}
 )(MainContainer);
 

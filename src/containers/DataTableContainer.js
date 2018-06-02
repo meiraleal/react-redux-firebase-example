@@ -43,7 +43,7 @@ DataTableContainer.propTypes = {
 };
 
 const StatefulDataTableContainer = connect(
-  state => ({data: state.data, dataTable: state.dataTable}),
+  state => ({loaded: state.loaded, loading: state.loading, data: state.data, dataTable: state.dataTable}),
   {handleRequestSort,
    handleChangePage,
    handleChangeRowsPerPage,
