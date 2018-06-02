@@ -1,5 +1,5 @@
-import * as firebase from "firebase";
-
+import firebase from 'firebase/app';
+import 'firebase/database';
 var config = {
   apiKey: "AIzaSyCTh7V9BAGidvxf4jz7P51TSZg2Bd3BC90",
   authDomain: "react-redux-firebase-exa-e97de.firebaseapp.com",
