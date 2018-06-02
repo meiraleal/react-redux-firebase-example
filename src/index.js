@@ -5,7 +5,7 @@ import { compose, createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import registerServiceWorker from './registerServiceWorker';
 import reducer from './reducer';
-import Container from './Container';
+import MainContainer from './containers/MainContainer';
 import './index.css';
 
 const middleware = [thunk];
@@ -19,7 +19,7 @@ const store = createStore(
 
 render(
   <Provider store={store}>
-    <Container />
+    <MainContainer />
   </Provider>,
   document.getElementById('root')
 );
